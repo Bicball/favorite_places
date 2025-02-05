@@ -3,6 +3,7 @@ import 'package:favorite_places/widgets/image_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+
 class AddPlaceView extends ConsumerStatefulWidget{
   const AddPlaceView({super.key});
 
