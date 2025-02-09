@@ -12,10 +12,16 @@ class PlaceDetailView extends StatelessWidget{
       appBar: AppBar(
         title: Text(place.tittle),
       ),
-      body: Center(child: Text(place.tittle, style: Theme
-          .of(context).textTheme.bodyLarge!.copyWith(
-          color: Theme.of(context).colorScheme.onSurface)),
-      ),
+      body: Stack(
+        children: [
+          Image.file(place.image,
+            fit: BoxFit.cover,
+            width: double.infinity,
+            height: double.infinity,
+          ),
+        ],
+      )
+
     );
   }
 }

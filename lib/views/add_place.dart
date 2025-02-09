@@ -1,7 +1,11 @@
-import 'package:favorite_places/providers/user_places.dart';
-import 'package:favorite_places/widgets/image_input.dart';
+import 'dart:io';
+import 'package:favorite_places/widgets/location_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:favorite_places/providers/user_places.dart';
+import 'package:favorite_places/widgets/image_input.dart';
+
 
 
 class AddPlaceView extends ConsumerStatefulWidget{
@@ -15,15 +19,16 @@ class AddPlaceView extends ConsumerStatefulWidget{
 
 class _AddPlaceViewState extends ConsumerState<AddPlaceView>{
   final _tittleController = TextEditingController();
+  File? _selectedImage;
 
   void _savePlace(){
     final enteredTittle = _tittleController.text;
-    if(enteredTittle.isEmpty){
+    if(enteredTittle.isEmpty || _selectedImage == null){
       //Você pode configurar um dialog aqui para exibir uma mensagem de erro
       return;
     }
 
-    ref.read(userPlacesProvider.notifier).addPlace(enteredTittle);
+    ref.read(userPlacesProvider.notifier).addPlace(enteredTittle, _selectedImage!);
 
     Navigator.of(context).pop();
   }
@@ -53,7 +58,13 @@ class _AddPlaceViewState extends ConsumerState<AddPlaceView>{
 
               const SizedBox(height: 10),
 
-              ImageInput(),
+              ImageInput(onPickedImage: (image) {
+                _selectedImage = image;
+              },),
+
+              const SizedBox(height: 18),
+
+              LocationInput(),
 
               const SizedBox(height: 18),
 
